@@ -1,0 +1,10 @@
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/bin/Debug/netcoreapp2.2/ExerciseTracker.Data.deps.json
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/bin/Debug/netcoreapp2.2/ExerciseTracker.Data.runtimeconfig.json
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/bin/Debug/netcoreapp2.2/ExerciseTracker.Data.runtimeconfig.dev.json
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/bin/Debug/netcoreapp2.2/ExerciseTracker.Data.dll
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/bin/Debug/netcoreapp2.2/ExerciseTracker.Data.pdb
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/obj/Debug/netcoreapp2.2/ExerciseTracker.Data.csprojAssemblyReference.cache
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/obj/Debug/netcoreapp2.2/ExerciseTracker.Data.AssemblyInfoInputs.cache
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/obj/Debug/netcoreapp2.2/ExerciseTracker.Data.AssemblyInfo.cs
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/obj/Debug/netcoreapp2.2/ExerciseTracker.Data.dll
+/home/internship1/Documents/exercise-tracker/ExerciseTracker.Data/obj/Debug/netcoreapp2.2/ExerciseTracker.Data.pdb
