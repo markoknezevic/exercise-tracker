@@ -3,15 +3,17 @@ using System;
 using ExerciseTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ExerciseTracker.Data.Migrations
 {
     [DbContext(typeof(ExerciseTrackerDbContext))]
-    partial class ExerciseTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200629161827_AddUserWeightEntity")]
+    partial class AddUserWeightEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,7 @@ namespace ExerciseTracker.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("user_weights");
+                    b.ToTable("user_weight");
                 });
 
             modelBuilder.Entity("ExerciseTracker.Data.Entities.User", b =>

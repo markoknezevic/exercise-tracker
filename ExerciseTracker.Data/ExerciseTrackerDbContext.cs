@@ -9,10 +9,12 @@ namespace ExerciseTracker.Data
 {
     public class ExerciseTrackerDbContext : DbContext
     {
-        public DbSet<Status> Measurements { get; set; }
+        public DbSet<Status> Statuses { get; set; }
         
-        public DbSet<User> MeasurementProperties { get; set; }
+        public DbSet<User> Users { get; set; }
 
+        public DbSet<UserWeight> UserWeights { get; set; }
+        
         public ExerciseTrackerDbContext(DbContextOptions<ExerciseTrackerDbContext> options)
             : base(options)
         { }

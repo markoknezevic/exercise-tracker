@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,5 +40,7 @@ namespace ExerciseTracker.Data.Entities
 
         [ForeignKey("StatusId")] 
         public Status Status { get; set; }
+
+        public ICollection<UserWeight> UserWeights { get; set; }
     }
 }
