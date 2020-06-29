@@ -2,12 +2,16 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ExerciseTracker.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExerciseTracker.Data
 {
     public class ExerciseTrackerDbContext : DbContext
     {
+        public DbSet<Status> Measurements { get; set; }
+        
+        public DbSet<User> MeasurementProperties { get; set; }
 
         public ExerciseTrackerDbContext(DbContextOptions<ExerciseTrackerDbContext> options)
             : base(options)
