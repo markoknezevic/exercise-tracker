@@ -42,5 +42,7 @@ namespace ExerciseTracker.Data.Entities
         public Status Status { get; set; }
 
         public ICollection<UserWeight> UserWeights { get; set; }
+        
+        public ICollection<WorkoutRecord> WorkoutRecords { get; set; }
     }
 }
