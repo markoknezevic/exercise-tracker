@@ -15,6 +15,8 @@ namespace ExerciseTracker.Data
 
         public DbSet<UserWeight> UserWeights { get; set; }
         
+        public DbSet<Workout> Workouts { get; set; }
+        
         public ExerciseTrackerDbContext(DbContextOptions<ExerciseTrackerDbContext> options)
             : base(options)
         { }
