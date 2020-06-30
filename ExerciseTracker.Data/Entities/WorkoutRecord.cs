@@ -9,14 +9,7 @@ namespace ExerciseTracker.Data.Entities
         [Key]
         [Column("id", Order = 1)]
         public override long Id { get; set; }
-        
-        [Required]
-        [Column("user_id", Order = 2)]
-        public long UserId { get; set; }
-        
-        [ForeignKey("UserId")]
-        public User User { get; set; }
-        
+
         [Required]
         [Column("workout_id", Order = 3)]
         public long WorkoutId { get; set; }

@@ -20,6 +20,13 @@ namespace ExerciseTracker.Data.Entities
         [Column("description", Order = 3)]
         public string Description { get; set; }
         
+        [Required]
+        [Column("user_id", Order = 2)]
+        public long UserId { get; set; }
+        
+        [ForeignKey("UserId")]
+        public User User { get; set; }
+        
         public ICollection<WorkoutRecord> WorkoutRecords { get; set; }
         
         public ICollection<ExerciseWorkout> ExerciseWorkouts { get; set; }
