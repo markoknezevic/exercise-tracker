@@ -21,5 +21,7 @@ namespace ExerciseTracker.Data.Entities
         public string Description { get; set; }
         
         public ICollection<WorkoutRecord> WorkoutRecords { get; set; }
+        
+        public ICollection<ExerciseWorkout> ExerciseWorkouts { get; set; }
     }
 }

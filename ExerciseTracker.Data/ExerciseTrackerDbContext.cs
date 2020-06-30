@@ -21,6 +21,8 @@ namespace ExerciseTracker.Data
         
         public DbSet<Exercise> Exercises { get; set; }
         
+        public DbSet<ExerciseWorkout> ExerciseWorkouts { get; set; }
+        
         public ExerciseTrackerDbContext(DbContextOptions<ExerciseTrackerDbContext> options)
             : base(options)
         { }
