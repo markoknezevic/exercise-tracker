@@ -4,3 +4,5 @@
 ExerciseTracker\.Data/bin/
 
 ExerciseTracker\.Data/obj/
+
+ExerciseTracker\.DataAccessLayer/obj/
