@@ -6,3 +6,9 @@ ExerciseTracker\.Data/bin/
 ExerciseTracker\.Data/obj/
 
 ExerciseTracker\.DataAccessLayer/obj/
+
+ExerciseTracker\.API/obj/
+
+ExerciseTracker\.DataAccessLayer/bin/
+
+ExerciseTracker\.API/bin/
