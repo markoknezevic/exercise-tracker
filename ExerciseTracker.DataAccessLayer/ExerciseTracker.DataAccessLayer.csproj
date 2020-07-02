@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExerciseTracker.Data\ExerciseTracker.Data.csproj" />
   </ItemGroup>
 
 
