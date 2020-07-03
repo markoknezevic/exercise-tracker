@@ -28,11 +28,12 @@ namespace ExerciseTracker.API
             service.AddDbContext<ExerciseTrackerDbContext>(options => options.UseNpgsql(dbContextConfiguration.ConnectionString));
             service.AddScoped<IUnitOfWork, UnitOfWork>();
             service.AddAutoMapper(typeof(Startup));
+            service.AddHttpContextAccessor();
             
             service.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
         
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -41,13 +42,11 @@ namespace ExerciseTracker.API
             else
             {
                 app.UseHttpsRedirection();
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                
                 app.UseHsts();
             }
-            
 
-            //app.UseAuthentication();
-            
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
