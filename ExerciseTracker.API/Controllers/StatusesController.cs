@@ -20,9 +20,9 @@ namespace ExerciseTracker.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(List<StatusDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType( StatusCodes.Status204NoContent)]
-        public ActionResult<List<StatusDTO>> Get()
+        public async Task<ActionResult<List<StatusDTO>>> Get()
         {
-            var statuses = UnitOfWork.StatusesRepository.GetAllStatuses();
+            var statuses = await UnitOfWork.StatusesRepository.GetAllStatusesAsync();
             if (statuses == null || !statuses.Any())
             {
                 return NoContent();
