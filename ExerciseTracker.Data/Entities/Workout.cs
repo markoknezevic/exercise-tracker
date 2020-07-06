@@ -27,6 +27,13 @@ namespace ExerciseTracker.Data.Entities
         [ForeignKey("UserId")]
         public User User { get; set; }
         
+        [Required]
+        [Column("status_id")]
+        public short StatusId { get; set; }
+        
+        [ForeignKey("StatusId")]
+        public Status Status { get; set; }
+
         public ICollection<WorkoutRecord> WorkoutRecords { get; set; }
         
         public ICollection<ExerciseWorkout> ExerciseWorkouts { get; set; }
