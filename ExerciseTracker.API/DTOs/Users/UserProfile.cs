@@ -8,6 +8,8 @@ namespace ExerciseTracker.API.DTOs.Users
         public UserProfile()
         {
             CreateMap<User, UserDTO>()
+                .ForMember(destination => destination.Id,
+                    options => options.MapFrom(source => source.Id))
                 .ForMember(destination => destination.FirstName,
                     options => options.MapFrom(source => source.FirstName))
                 .ForMember(destination => destination.LastName,

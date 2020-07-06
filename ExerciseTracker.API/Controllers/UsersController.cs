@@ -26,7 +26,8 @@ namespace ExerciseTracker.API.Controllers
                 return BadRequest();
             }
 
-            if (UnitOfWork.UsersRepository.IsEmailTaken(userPostObject.Email))
+            var isEmailTaken = await UnitOfWork.UsersRepository.IsEmailTakenAsync(userPostObject.Email);
+            if (isEmailTaken)
             {
                 return BadRequest();
             }
@@ -50,6 +51,55 @@ namespace ExerciseTracker.API.Controllers
 
             return userMapResult;
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType( StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> Delete([FromRoute] long id)
+        {
+            var isUserActiveAndExists = await UnitOfWork.UsersRepository.IsActiveUserExistsAsync(id);
+            if (!isUserActiveAndExists)
+            {
+                return BadRequest();
+            }
+
+            var isUserDeleted = await UnitOfWork.UsersRepository.DeleteUserAsync(id);
+            if (!isUserDeleted)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
         
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType( StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<UserDTO>> Put([FromBody] EditUserPutObject userPutObject)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var isActiveUserExists = await UnitOfWork.UsersRepository.IsActiveUserExistsAsync(userPutObject.Id);
+            if (!isActiveUserExists)
+            {
+                return BadRequest();
+            }
+
+            var editedUser = await UnitOfWork.UsersRepository.EditUserAsync(userPutObject.Id, userPutObject.FirstName,
+                                                                            userPutObject.LastName, userPutObject.Password,
+                                                                            userPutObject.DateOfBirth);
+
+            if (editedUser == null)
+            {
+                return BadRequest();
+            }
+
+            var editedUserMapResult = Mapper.Map<User, UserDTO>(editedUser);
+
+            return Ok(editedUserMapResult);
+        }
     }
 }
