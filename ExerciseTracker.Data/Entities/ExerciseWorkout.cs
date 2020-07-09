@@ -34,5 +34,12 @@ namespace ExerciseTracker.Data.Entities
         
         [ForeignKey("ExerciseId")]
         public Exercise Exercise { get; set; }
+        
+        [Required]
+        [Column("status_id")]
+        public short StatusId { get; set; }
+        
+        [ForeignKey("StatusId")]
+        public Status Status { get; set; }
     }
 }

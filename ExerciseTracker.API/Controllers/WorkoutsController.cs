@@ -78,7 +78,6 @@ namespace ExerciseTracker.API.Controllers
         public async Task<ActionResult<ICollection<WorkoutDTO>>> Get()
         {
             var workouts = await UnitOfWork.WorkoutsRepository.GetAllWorkoutsAsync();
-
             if (workouts == null || workouts.Count == 0)
             {
                 return NoContent();

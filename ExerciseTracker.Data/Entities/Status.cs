@@ -28,5 +28,7 @@ namespace ExerciseTracker.Data.Entities
         public ICollection<User> Users { get; set; }
         
         public ICollection<Workout> Workouts { get; set; }
+        
+        public ICollection<ExerciseWorkout> ExerciseWorkouts { get; set; }
     }
 }
