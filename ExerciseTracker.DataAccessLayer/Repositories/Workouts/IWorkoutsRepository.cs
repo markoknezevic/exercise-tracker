@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExerciseTracker.Data.Entities;
 
@@ -16,5 +17,9 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.Workouts
         Task<bool> DeleteWorkoutAsync(long id);
         
         bool DeleteWorkout(long id);
+
+        Task<List<Workout>> GetAllWorkoutsAsync();
+        
+        List<Workout> GetAllWorkouts();
     }
 }

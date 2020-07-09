@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ExerciseTracker.API.DTOs.Users;
@@ -69,6 +70,23 @@ namespace ExerciseTracker.API.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(List<WorkoutDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType( StatusCodes.Status204NoContent)]
+        public async Task<ActionResult<ICollection<WorkoutDTO>>> Get()
+        {
+            var workouts = await UnitOfWork.WorkoutsRepository.GetAllWorkoutsAsync();
+
+            if (workouts == null || workouts.Count == 0)
+            {
+                return NoContent();
+            }
+
+            var workoutsMapResult = Mapper.Map<List<Workout>, List<WorkoutDTO>>(workouts);
+
+            return workoutsMapResult;
         }
     }
 }

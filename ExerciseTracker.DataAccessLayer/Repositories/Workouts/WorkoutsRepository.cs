@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExerciseTracker.Data;
@@ -20,7 +21,6 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.Workouts
             await _exerciseTrackerDbContext.Workouts.AddAsync(workout);
 
             var result = await _exerciseTrackerDbContext.SaveChangesAsync();
-
             if (result == 0)
             {
                 return null;
@@ -34,7 +34,6 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.Workouts
              _exerciseTrackerDbContext.Workouts.Add(workout);
 
             var result =  _exerciseTrackerDbContext.SaveChanges();
-
             if (result == 0)
             {
                 return null;
@@ -62,7 +61,6 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.Workouts
         public async Task<bool> DeleteWorkoutAsync(long id)
         {
             var workout  = await _exerciseTrackerDbContext.Workouts.FirstOrDefaultAsync(w => w.Id == id);
-            
             if(workout == null)
             {
                 return false;
@@ -71,7 +69,6 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.Workouts
             workout.StatusId = (short) Data.Entities.Statuses.Inactive;
 
             var result = await _exerciseTrackerDbContext.SaveChangesAsync();
-
             if (result == 0)
             {
                 return false;
@@ -83,7 +80,6 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.Workouts
         public bool DeleteWorkout(long id)
         {
             var workout  = _exerciseTrackerDbContext.Workouts.FirstOrDefault(w => w.Id == id);
-            
             if(workout == null)
             {
                 return false;
@@ -92,13 +88,34 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.Workouts
             workout.StatusId = (short) Data.Entities.Statuses.Inactive;
 
             var result =  _exerciseTrackerDbContext.SaveChanges();
-
             if (result == 0)
             {
                 return false;
             }
 
             return true;
+        }
+
+        public async Task<List<Workout>> GetAllWorkoutsAsync()
+        {
+            var workouts = await _exerciseTrackerDbContext.Workouts.ToListAsync();
+            if (workouts.Count == 0)
+            {
+                return null;
+            }
+
+            return workouts;
+        }
+
+        public List<Workout> GetAllWorkouts()
+        {
+            var workouts =  _exerciseTrackerDbContext.Workouts.ToList();
+            if (workouts.Count == 0)
+            {
+                return null;
+            }
+
+            return workouts;
         }
     }
 }
