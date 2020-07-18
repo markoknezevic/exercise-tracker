@@ -7,7 +7,11 @@ namespace ExerciseTracker.API.DTOs.Exercises
     {
         public ExerciseProfile()
         {
-            CreateMap<Exercise, ExerciseDTO>().ForMember(
+            CreateMap<Exercise, ExerciseDTO>()
+                .ForMember(
+                    destination => destination.Id,
+                    options => options.MapFrom(source => source.Id))
+                .ForMember(
                 destination => destination.Name,
                 options => options.MapFrom(source => source.Name))
                 .ForMember(
