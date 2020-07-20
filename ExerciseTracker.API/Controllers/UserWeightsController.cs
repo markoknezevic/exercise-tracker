@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ExerciseTracker.API.DTOs.UserWeights;
@@ -19,7 +20,7 @@ namespace ExerciseTracker.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(UserWeightDTO), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserWeightDTO>> Post(UserWeightPostObject userWeightPostObject)
+        public async Task<ActionResult<UserWeightDTO>> Post([FromBody] UserWeightPostObject userWeightPostObject)
         {
             if (!ModelState.IsValid)
             {
@@ -46,6 +47,32 @@ namespace ExerciseTracker.API.Controllers
             var userWeightMapResult = Mapper.Map<UserWeight, UserWeightDTO>(savedUserWeight);
 
             return Created(String.Empty, userWeightMapResult);
+        }
+        
+        [HttpGet("{userId}")]
+        [ProducesResponseType(typeof(List<UserWeightDTO>), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<ActionResult<UserWeightDTO>> Get([FromRoute] long userId)
+        {
+            var isActiveUserExistsTask = UnitOfWork.UsersRepository.IsActiveUserExistsAsync(userId);
+            var isAnyUserWeightExistsTask = UnitOfWork.UserWeightsRepository.IsAnyUserWeightExistsAsync(userId);
+
+            Task.WaitAll(isActiveUserExistsTask, isAnyUserWeightExistsTask);
+            
+            if (!isActiveUserExistsTask.Result || !isAnyUserWeightExistsTask.Result)
+            {
+                return BadRequest();
+            }
+
+            var userWeights = await UnitOfWork.UserWeightsRepository.GetUserWeightsAsync(userId);
+            if (userWeights == null || userWeights.Count == 0)
+            {
+                return NoContent();
+            }
+            
+            var userWeightsMapResult = Mapper.Map<List<UserWeight>, List<UserWeightDTO>>(userWeights);
+
+            return Ok(userWeightsMapResult);
         }
     }
 }

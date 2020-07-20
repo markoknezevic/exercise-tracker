@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExerciseTracker.Data;
 using ExerciseTracker.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExerciseTracker.DataAccessLayer.Repositories.UserWeights
 {
@@ -37,6 +40,36 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.UserWeights
             }
 
             return userWeight;
+        }
+
+        public async Task<bool> IsAnyUserWeightExistsAsync(long userId)
+        {
+            var result = await _exerciseTrackerDbContext.UserWeights.AnyAsync(uw => uw.UserId == userId);
+
+            return result;
+        }
+
+        public bool IsAnyUserWeightExists(long userId)
+        {
+            var result = _exerciseTrackerDbContext.UserWeights.Any(uw => uw.UserId == userId);
+            
+            return result;
+        }
+
+        public async Task<List<UserWeight>> GetUserWeightsAsync(long userId)
+        {
+            var userWeights = await _exerciseTrackerDbContext.UserWeights.Where(uw => uw.UserId == userId)
+                                                                                       .ToListAsync();
+
+            return userWeights;
+        }
+
+        public List<UserWeight> GetUserWeights(long userId)
+        {
+            var userWeights = _exerciseTrackerDbContext.UserWeights.Where(uw => uw.UserId == userId)
+                                                                                  .ToList();
+
+            return userWeights;
         }
     }
 }
