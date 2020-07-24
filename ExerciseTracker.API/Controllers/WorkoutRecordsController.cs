@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using ExerciseTracker.API.DTOs.WorkoutRecords;
@@ -39,6 +40,32 @@ namespace ExerciseTracker.API.Controllers
             var workoutRecordMapResult = Mapper.Map<WorkoutRecord, WorkoutRecordDTO>(savedWorkoutRecord);
 
             return workoutRecordMapResult;
+        }
+
+        [HttpGet("{workoutId}")]
+        [ProducesResponseType(typeof(List<WorkoutRecordDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<WorkoutRecordDTO>>> Get([FromRoute] long workoutId)
+        {
+            var isActiveWorkoutExistsTask = UnitOfWork.WorkoutsRepository.IsActiveWorkoutExistsAsync(workoutId);
+            var isAnyWorkoutRecordExistsTask = UnitOfWork.WorkoutRecordsRepository.IsAnyWorkoutRecordExistsAsync(workoutId);
+
+            Task.WaitAll(isActiveWorkoutExistsTask, isAnyWorkoutRecordExistsTask);
+
+            if (!isActiveWorkoutExistsTask.Result || !isAnyWorkoutRecordExistsTask.Result)
+            {
+                return BadRequest();
+            }
+
+            var workoutRecords = await UnitOfWork.WorkoutRecordsRepository.GetWorkoutRecordsByWorkoutIdAsync(workoutId);
+            if (workoutRecords == null || workoutRecords.Count == 0)
+            {
+                return BadRequest();
+            }
+
+            var workoutRecordsMapResult = Mapper.Map<List<WorkoutRecord>, List<WorkoutRecordDTO>>(workoutRecords);
+            
+            return Ok(workoutRecordsMapResult);
         }
     }
 }

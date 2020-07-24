@@ -9,10 +9,7 @@ namespace ExerciseTracker.API.DTOs.WorkoutRecords
     {
         [JsonProperty("id")]
         public long Id { get; set; }
-        
-        [JsonProperty("workout")]
-        public WorkoutDTO Workout { get; set; }
-        
+
         [JsonProperty("created_at")]
         public DateTime CreatedAt { get; set; }
     }

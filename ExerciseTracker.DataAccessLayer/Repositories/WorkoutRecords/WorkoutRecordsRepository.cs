@@ -1,6 +1,9 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ExerciseTracker.Data;
 using ExerciseTracker.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExerciseTracker.DataAccessLayer.Repositories.WorkoutRecords
 {
@@ -37,6 +40,36 @@ namespace ExerciseTracker.DataAccessLayer.Repositories.WorkoutRecords
             }
 
             return workoutRecord;
+        }
+
+        public async Task<bool> IsAnyWorkoutRecordExistsAsync(long workoutId)
+        {
+            var result = await _exerciseTrackerDbContext.WorkoutRecords.AnyAsync(wr => wr.WorkoutId == workoutId);
+
+            return result;
+        }
+
+        public bool IsAnyWorkoutRecordExists(long workoutId)
+        {
+            var result =  _exerciseTrackerDbContext.WorkoutRecords.Any(wr => wr.WorkoutId == workoutId);
+
+            return result;
+        }
+
+        public async Task<List<WorkoutRecord>> GetWorkoutRecordsByWorkoutIdAsync(long workoutId)
+        {
+            var workoutRecords = await _exerciseTrackerDbContext.WorkoutRecords.Where(wr => wr.WorkoutId == workoutId)
+                                                                                                .ToListAsync();
+
+            return workoutRecords;
+        }
+
+        public List<WorkoutRecord> GetWorkoutRecordsByWorkoutId(long workoutId)
+        {
+            var workoutRecords =  _exerciseTrackerDbContext.WorkoutRecords.Where(wr => wr.WorkoutId == workoutId)
+                                                                                            .ToList();
+
+            return workoutRecords;
         }
     }
 }
